@@ -100,7 +100,7 @@ resource "aws_security_group" "t_sgrp" {
 
 resource "aws_key_pair" "terraform_created_key" {
   key_name   = "terraform_created_key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdpel4bbH0QOC7z3P5IH2/yF0vAe7S2hh5oLn78EQh7Ke7itXkYUxBrq1NKoeTISVGxOTW/3sXjPNl6DVbpYO5yLCi/VhsokJ5Vplv5YUpI3BdQVa8cbh6nPQjuGOHcsBugrUyXBaY2leo4TYxlngMuYWlnPjP5O0yhgazCigyeDBkHkfxJvkOveKignQyBogUuQVbbeykqkGjNIqafycXWZrFo5JGK4g+PhxdcX6R41qz8VleikGDRWTRgepZpEM4JpgirIqnVOMdBzBzDWMs/yL9Zpmp6floOb8HkAdIeZZVEK2vo0SAZzCznKIl3p8VMWspO+BsSwmHakGnIRip ec2-user@ip-172-31-9-205.us-east-2.compute.internal"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwfT5R5i8BF/QkvhvJ04tDeSTwr73kstd5cSfBQ5JdGKF21fs7Cu9Wan2x9E7P1UUw6Q+xjZwhmvIsXCdofbXAl0ALRgtVZlyGeaXXRuwVcFEPlGPAsD6qZ5+cS2jb3MQ91YAnT5/BRfuq4ajV4Gdj+LM4XmKQjte6fQSbaIktMATGJSgR3KTM6FC4/MxYVXoyP7KNHfeOAKqGZoYBvY3SSaHBbw9voUz9qVhi4NjtiAdyKqq45KuFu2bFGmmu/lFrtWwqWQ09LpCVXIkF5v0n+o5VtZhll5et73iv+p0+OHiUk5mq1luD2c2RVZrbnltk363qwQeMxDfRli7DSlxF ec2-user@ip-172-31-29-190.ec2.internal"
 }
 
 output "t_output_instance-private-ip" {
