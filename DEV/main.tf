@@ -1,6 +1,20 @@
 provider "aws" {
   region = "us-east-1"
- }
+}
+
+terraform {
+  backend "s3" {
+    # Replace this with your bucket name
+    bucket = "mahesh-vamsi-terraform-states"
+    key    = "global/terraform.tfstate"
+    region = "us-east-1"
+
+    #Replace this with your Dynamodb table name
+    dynamodb_table = "terraform-up-and-running-locks"
+    encrypt        = true
+  }
+}
+
 resource "aws_vpc" "t_my_vpc_01" {
   cidr_block       = "192.168.0.0/16"
   instance_tenancy = "default"
@@ -9,6 +23,7 @@ resource "aws_vpc" "t_my_vpc_01" {
     Name = "my_vpc_01"
   }
 }
+
 resource "aws_subnet" "t_public_subnet" {
   vpc_id     = aws_vpc.t_my_vpc_01.id
   cidr_block = "192.168.1.0/24"
@@ -17,6 +32,7 @@ resource "aws_subnet" "t_public_subnet" {
     Name = "public_subnet"
   }
 }
+
 resource "aws_internet_gateway" "t_igw" {
   vpc_id = aws_vpc.t_my_vpc_01.id
 
@@ -24,6 +40,7 @@ resource "aws_internet_gateway" "t_igw" {
     Name = "igw"
   }
 }
+
 resource "aws_route_table" "t_public_rt" {
   vpc_id = aws_vpc.t_my_vpc_01.id
 
@@ -36,10 +53,12 @@ resource "aws_route_table" "t_public_rt" {
     Name = "public_rt"
   }
 }
+
 resource "aws_route_table_association" "t_public_rt_assoc" {
   subnet_id      = aws_subnet.t_public_subnet.id
   route_table_id = aws_route_table.t_public_rt.id
 }
+
 resource "aws_instance" "t_ec2_instance" {
 
     ami = "ami-0022f774911c1d690"  
@@ -48,11 +67,10 @@ resource "aws_instance" "t_ec2_instance" {
     vpc_security_group_ids = [aws_security_group.t_sgrp.id]
     subnet_id  = aws_subnet.t_public_subnet.id
     tags = {
-    Name = "terraform_created_instance"
-    associate_public_ip_address = true
-  }
-
- }
+    	Name = "terraform_created_instance"
+    	associate_public_ip_address = true
+    }
+}
 
 resource "aws_eip" "t_eip" {
   vpc = true
@@ -96,7 +114,6 @@ resource "aws_security_group" "t_sgrp" {
     Name = "terraform_created_sg"
   }
 }
-
 
 resource "aws_key_pair" "terraform_created_key" {
   key_name   = "terraform_created_key"
